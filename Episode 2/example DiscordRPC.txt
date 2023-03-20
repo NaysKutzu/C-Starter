@@ -1,0 +1,41 @@
+void InitializeRPC()
+        {
+            client = new DiscordRpcClient("puththeaplpicationidhereplease");
+
+            client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+
+            client.OnReady += (sender, e) =>
+            {
+                Console.WriteLine("Received Ready from user {0}", e.User.Username);
+            };
+
+            client.OnPresenceUpdate += (sender, e) =>
+            {
+                Console.WriteLine("Received Update! {0}", e.Presence);
+            };
+
+            client.Initialize();
+
+            DiscordRPC.Button btns = new DiscordRPC.Button();
+            DiscordRPC.Button btns2 = new DiscordRPC.Button();
+            btns.Label = "YourFirstLink";
+            btns.Url = "https://yourfirstlink.lol";
+            btns2.Label = "Your2ndlink";
+            btns2.Url = "https://this-is-a.link";
+
+            client.SetPresence(new RichPresence()
+            {
+                Details = "Here you can put yoru launcher name",
+                State = "Here you can put your launcher descrition",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "logo",
+                    LargeImageText = "Here you can put the launcher name",
+                },
+                Buttons = new DiscordRPC.Button[]
+                {
+                    btns,
+                    btns2
+                },
+            });
+        }
